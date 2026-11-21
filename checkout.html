@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Express Checkout | Jyotish Kavach</title>
+  <meta name="description" content="Securely complete your Jyotish Kavach order. Provide delivery details and Gotra for Vedic Pran Pratishtha energization.">
+  <link rel="icon" type="image/png" href="uploads/logo.png">
+  <link rel="stylesheet" href="style.css">
+  
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+  <!-- Top Announcement Bar -->
+  <div class="header-top-announcement">
+    <div class="container">
+      <div class="announcement-inner">
+        <div class="announcement-left">
+          <span class="announcement-badge">SPECIAL OFFER</span>
+          <span>✨ 100% Lab Certified &amp; Energized Products | Free Shipping on orders over ₹999 | Use Code: <strong>KAVACH10</strong></span>
+        </div>
+        <div class="announcement-right">
+          <a href="tel:+919876543210" class="announcement-link">
+            <i data-lucide="phone" style="width:14px;height:14px;"></i> +91 98765 43210
+          </a>
+          <a href="mailto:support@jyotishkavach.in" class="announcement-link">
+            <i data-lucide="mail" style="width:14px;height:14px;"></i> support@jyotishkavach.in
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="header-wrapper">
+    <div class="header-top-row">
+      <div class="container">
+        <div class="header-top-inner">
+          <a href="index.html" class="site-logo">
+            <div class="logo-badge">
+              <img src="uploads/logo.png" alt="Jyotish Kavach">
+            </div>
+            <div class="logo-text-group">
+              <span class="logo-title">Jyotish Kavach</span>
+              <span class="logo-subtitle">Your Destiny, Your Kavach</span>
+            </div>
+          </a>
+
+          <!-- Search Bar -->
+          <div class="search-pill-container">
+            <select class="search-category-select" id="headerCategorySelect">
+              <option value="all">All Categories</option>
+              <option value="kavach">Sacred Kavach</option>
+              <option value="rudraksha">Rudraksha</option>
+              <option value="yantra">Energized Yantras</option>
+              <option value="gemstone">Gemstones</option>
+              <option value="puja">Puja Items</option>
+              <option value="books">Astrology Books</option>
+            </select>
+            <input type="text" class="search-input" id="headerSearchInput" placeholder="Search Kavach, Rudraksha, Yantra, Gemstones...">
+            <button class="search-btn" id="headerSearchBtn" type="button" aria-label="Search">
+              <i data-lucide="search" style="width:18px;height:18px;"></i>
+            </button>
+          </div>
+
+          <!-- Header Actions -->
+          <div class="header-actions">
+            <a href="login.html" class="btn-header-pill btn-login-pill" id="userAccountBtn">
+              <i data-lucide="user" style="width:17px;height:17px;"></i>
+              <span id="accountBtnText">Login</span>
+            </a>
+            <a href="shop.html?view=wishlist" class="btn-wishlist-pill" id="wishlistBtn" title="Wishlist">
+              <i data-lucide="heart" style="width:19px;height:19px;"></i>
+              <span class="wishlist-count" id="wishlistCount">0</span>
+            </a>
+            <a href="cart.html" class="btn-cart-pill" id="cartBtn" title="View Cart">
+              <i data-lucide="shopping-bag" style="width:19px;height:19px;"></i>
+              <span class="cart-count" id="cartCount">0</span>
+            </a>
+            <button class="mobile-toggle" id="mobileMenuBtn" aria-label="Toggle navigation">
+              <i data-lucide="menu" style="width:26px;height:26px;"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Navigation Bar -->
+    <div class="header-nav-row" id="stickyNav">
+      <div class="container">
+        <nav class="main-nav" id="mainNav">
+          <a href="index.html" class="nav-item-link">Home</a><a href="about.html" class="nav-item-link">About Us</a>
+          <a href="shop.html" class="nav-item-link">Shop Collection <span class="nav-badge-hot">NEW</span></a>
+          <a href="shop.html?cat=kavach" class="nav-item-link">Sacred Kavach</a>
+          <a href="shop.html?cat=rudraksha" class="nav-item-link">Rudraksha</a>
+          <a href="shop.html?cat=yantra" class="nav-item-link">Yantras</a>
+          <a href="services.html" class="nav-item-link">Vedic Consultations</a>
+          <a href="blog.html" class="nav-item-link">Jyotish Blog</a>
+          <a href="contact.html" class="nav-item-link">Contact</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <!-- Checkout Main Content -->
+  <main class="container" style="padding-top:24px;padding-bottom:70px;">
+    <!-- Modern Shopping App Stepper -->
+    <div class="checkout-stepper">
+      <div class="step-item">
+        <span class="step-num"><i data-lucide="check" style="width:13px;height:13px;"></i></span>
+        <span>Sacred Cart</span>
+      </div>
+      <div class="step-divider"></div>
+      <div class="step-item active">
+        <span class="step-num">2</span>
+        <span>Delivery &amp; Sankalp</span>
+      </div>
+      <div class="step-divider"></div>
+      <div class="step-item">
+        <span class="step-num">3</span>
+        <span>Payment</span>
+      </div>
+    </div>
+
+    <div class="checkout-layout-grid" id="checkoutLayout">
+      <!-- Left: Checkout Forms -->
+      <div>
+        <h1 style="font-family:var(--font-heading);font-size:1.6rem;color:var(--color-primary);margin-bottom:18px;">
+          Delivery &amp; Sanctification Details
+        </h1>
+
+        <!-- Form Box -->
+        <form id="checkoutForm" onsubmit="handlePlaceOrder(event)" class="checkout-box">
+          
+          <!-- Contact Details -->
+          <h3 style="font-family:var(--font-heading);font-size:1.15rem;color:var(--color-primary);margin-bottom:18px;display:flex;align-items:center;gap:8px;">
+            <i data-lucide="user" style="color:var(--color-gold);width:20px;height:20px;"></i>
+            <span>1. Contact Information</span>
+          </h3>
+
+          <div class="checkout-form-2col">
+            <div class="form-group">
+              <label class="form-label">Full Name *</label>
+              <input type="text" id="custName" class="form-input" placeholder="e.g. Ramesh Chandra Sharma" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">WhatsApp Mobile Number *</label>
+              <input type="tel" id="custPhone" class="form-input" placeholder="e.g. 9876543210" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Email Address (For Order Tracking &amp; Invoice) *</label>
+            <input type="email" id="custEmail" class="form-input" placeholder="e.g. ramesh@example.com" required>
+          </div>
+
+          <!-- Vedic Energization Details (Gotra & Sankalp) -->
+          <div style="background:var(--color-cream);border:1.5px dashed var(--color-gold);border-radius:var(--radius-sm);padding:18px;margin:22px 0;">
+            <h4 style="font-family:var(--font-heading);font-size:1rem;color:var(--color-primary);margin-bottom:8px;display:flex;align-items:center;gap:8px;">
+              <span>🕉️</span> Vedic Pran Pratishtha Sankalp (Optional)
+            </h4>
+            <p style="font-size:0.82rem;color:var(--color-text-mid);margin-bottom:14px;line-height:1.5;">
+              Our Vedic priests will consecrate your ordered Kavach/Rudraksha with a personalized Sankalp in your or your family member's name.
+            </p>
+            <div class="checkout-form-2col">
+              <div>
+                <label class="form-label" style="font-size:0.82rem;">Person's Name for Blessing</label>
+                <input type="text" id="sankalpName" class="form-input" placeholder="Beneficiary Full Name">
+              </div>
+              <div>
+                <label class="form-label" style="font-size:0.82rem;">Gotra (if known, else Kashyap)</label>
+                <input type="text" id="sankalpGotra" class="form-input" placeholder="e.g. Bharadwaj, Kashyap">
+              </div>
+            </div>
+          </div>
+
+          <!-- Shipping Address -->
+          <h3 style="font-family:var(--font-heading);font-size:1.15rem;color:var(--color-primary);margin:24px 0 18px;display:flex;align-items:center;gap:8px;">
+            <i data-lucide="map-pin" style="color:var(--color-gold);width:20px;height:20px;"></i>
+            <span>2. Delivery Address</span>
+          </h3>
+
+          <div class="form-group">
+            <label class="form-label">Flat, House no., Building, Street *</label>
+            <input type="text" id="custAddress" class="form-input" placeholder="House / Flat No, Landmark, Colony" required>
+          </div>
+
+          <div class="checkout-form-3col">
+            <div class="form-group">
+              <label class="form-label">City *</label>
+              <input type="text" id="custCity" class="form-input" placeholder="e.g. New Delhi" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">State *</label>
+              <input type="text" id="custState" class="form-input" placeholder="e.g. Delhi" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Pincode *</label>
+              <input type="text" id="custPincode" class="form-input" placeholder="e.g. 110001" required>
+            </div>
+          </div>
+
+          <!-- Payment Method Choice -->
+          <h3 style="font-family:var(--font-heading);font-size:1.15rem;color:var(--color-primary);margin:24px 0 18px;display:flex;align-items:center;gap:8px;">
+            <i data-lucide="credit-card" style="color:var(--color-gold);width:20px;height:20px;"></i>
+            <span>3. Payment Method</span>
+          </h3>
+
+          <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:28px;">
+            <label class="payment-card-label selected" onclick="selectPaymentOption(this)">
+              <input type="radio" name="paymentMethod" value="upi" checked>
+              <div style="flex:1;">
+                <strong style="color:var(--color-primary);display:block;font-size:0.95rem;">UPI / QR Code (PhonePe, GPay, Paytm)</strong>
+                <small style="color:var(--color-green);font-weight:700;">Fast &amp; Instant Confirmation • Recommended</small>
+              </div>
+              <span style="font-size:1.25rem;">⚡</span>
+            </label>
+
+            <label class="payment-card-label" onclick="selectPaymentOption(this)">
+              <input type="radio" name="paymentMethod" value="card">
+              <div style="flex:1;">
+                <strong style="color:var(--color-primary);display:block;font-size:0.95rem;">Debit / Credit Card &amp; Net Banking</strong>
+                <small style="color:var(--color-text-muted);">Visa, MasterCard, RuPay, All Major Banks</small>
+              </div>
+              <span style="font-size:1.25rem;">💳</span>
+            </label>
+
+            <label class="payment-card-label" onclick="selectPaymentOption(this)">
+              <input type="radio" name="paymentMethod" value="cod">
+              <div style="flex:1;">
+                <strong style="color:var(--color-primary);display:block;font-size:0.95rem;">Cash on Delivery (COD)</strong>
+                <small style="color:var(--color-text-muted);">Pay cash when courier delivers the energized package</small>
+              </div>
+              <span style="font-size:1.25rem;">📦</span>
+            </label>
+          </div>
+
+          <button type="submit" class="btn-gold" style="width:100%;justify-content:center;padding:16px;font-size:1.1rem;box-shadow:0 6px 20px rgba(201, 168, 76, 0.4);">
+            <i data-lucide="shield-check" style="width:22px;height:22px;"></i>
+            <span>Complete Sacred Order Securely</span>
+          </button>
+        </form>
+      </div>
+
+      <!-- Right: Order Summary Sidebar -->
+      <aside class="sticky-order-summary">
+        <div class="order-summary-card">
+          <h3 style="font-family:var(--font-heading);font-size:1.25rem;color:var(--color-primary);margin-bottom:18px;border-bottom:1px solid var(--color-border);padding-bottom:10px;display:flex;align-items:center;justify-content:space-between;">
+            <span>Order Review</span>
+            <span style="font-size:0.85rem;font-weight:normal;color:var(--color-text-muted);" id="checkoutItemCountText"></span>
+          </h3>
+
+          <div id="checkoutItemsList" style="display:flex;flex-direction:column;gap:12px;margin-bottom:20px;max-height:320px;overflow-y:auto;padding-right:4px;">
+            <!-- Populated from cart -->
+          </div>
+
+          <div class="summary-row">
+            <span>Subtotal</span>
+            <span id="coSubtotal">₹0</span>
+          </div>
+
+          <div class="summary-row" style="color:var(--color-green);">
+            <span>Vedic Energization &amp; Puja</span>
+            <span>FREE (Included)</span>
+          </div>
+
+          <div class="summary-row">
+            <span>Shipping</span>
+            <span style="color:var(--color-green);font-weight:700;">FREE</span>
+          </div>
+
+          <div class="summary-row summary-total">
+            <span>Total Payable</span>
+            <span id="coTotal" style="color:var(--color-primary);font-size:1.4rem;">₹0</span>
+          </div>
+
+          <div style="background:var(--color-cream);padding:14px;border-radius:var(--radius-sm);margin-top:20px;font-size:0.82rem;color:var(--color-text-mid);line-height:1.5;border:1px solid var(--color-border);">
+            🛡️ <strong>Our Sacred Promise:</strong> Every piece is checked for astrological authenticity and consecrated at our sacred altar with your Sankalp before dispatch.
+          </div>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-bottom">
+      <div class="container" style="justify-content:center;">
+        <p>© 2026 Jyotish Kavach. All rights reserved. 100% Authentic Vedic Remedies.</p>
+      </div>
+    </div>
+  </footer>
+
+    <!-- Floating WhatsApp Button -->
+  <a href="https://wa.me/919876543210?text=Namaste%20Jyotish%20Kavach,%20I%20need%20astrological%20guidance" class="whatsapp-float" target="_blank" rel="noopener" aria-label="Chat on WhatsApp" title="Chat with Acharya on WhatsApp">
+    <img src="uploads/whatsapp.png" alt="WhatsApp Chat" width="62" height="62">
+  </a>
+
+  <script src="rr-bridge.js"></script>
+  <script src="script.js"></script>
+  <script>
+    if (typeof lucide !== 'undefined') lucide.createIcons();
+
+    let orderTotalAmount = 0;
+
+    function selectPaymentOption(labelEl) {
+      document.querySelectorAll('.payment-card-label').forEach(l => l.classList.remove('selected'));
+      labelEl.classList.add('selected');
+      const radio = labelEl.querySelector('input[type="radio"]');
+      if (radio) radio.checked = true;
+    }
+
+    function renderCheckoutItems() {
+      let cart = getCart();
+      const listEl = document.getElementById('checkoutItemsList');
+      if (!cart || cart.length === 0) {
+        cart = [
+          { id: 1, name: 'Surya Kavach Protective Yantra Amulet', price: 799, qty: 1, image: 'https://images.unsplash.com/photo-1611085583191-a3b181a88401?w=200' }
+        ];
+        saveCart(cart);
+      }
+
+      const countText = document.getElementById('checkoutItemCountText');
+      if (countText) {
+        const totalItemsCount = cart.reduce((s, i) => s + (i.qty || 1), 0);
+        countText.textContent = `${totalItemsCount} Sacred Item${totalItemsCount > 1 ? 's' : ''}`;
+      }
+
+      listEl.innerHTML = '';
+      let total = 0;
+
+      cart.forEach(item => {
+        const itemTot = (item.price || 0) * (item.qty || 1);
+        total += itemTot;
+
+        const row = document.createElement('div');
+        row.style.display = 'flex';
+        row.style.alignItems = 'center';
+        row.style.gap = '10px';
+        row.style.borderBottom = '1px solid var(--color-border)';
+        row.style.paddingBottom = '10px';
+        row.innerHTML = `
+          <img src="${item.image || 'https://placehold.co/80x80'}" style="width:46px;height:46px;border-radius:6px;object-fit:cover;">
+          <div style="flex:1;">
+            <div style="font-size:0.88rem;font-weight:700;color:var(--color-primary);">${item.name}</div>
+            <div style="font-size:0.78rem;color:var(--color-text-muted);">Qty: ${item.qty} × ₹${item.price}</div>
+          </div>
+          <strong style="color:var(--color-primary);font-size:0.95rem;">₹${itemTot}</strong>
+        `;
+        listEl.appendChild(row);
+      });
+
+      orderTotalAmount = total;
+      document.getElementById('coSubtotal').textContent = '₹' + total;
+      document.getElementById('coTotal').textContent = '₹' + total;
+    }
+
+    async function handlePlaceOrder(e) {
+      e.preventDefault();
+
+      const orderData = {
+        name: document.getElementById('custName').value,
+        phone: document.getElementById('custPhone').value,
+        email: document.getElementById('custEmail').value,
+        address: document.getElementById('custAddress').value,
+        city: document.getElementById('custCity').value,
+        state: document.getElementById('custState').value,
+        pincode: document.getElementById('custPincode').value,
+        sankalpName: document.getElementById('sankalpName').value,
+        sankalpGotra: document.getElementById('sankalpGotra').value,
+        paymentMethod: document.querySelector('input[name="paymentMethod"]:checked').value,
+        items: getCart(),
+        total: orderTotalAmount,
+        orderId: 'JK-' + Math.floor(100000 + Math.random() * 900000)
+      };
+
+      // Save order in localStorage
+      localStorage.setItem('jk_last_order', JSON.stringify(orderData));
+
+      // Save to jk_orders list so admin sees it immediately!
+      let fullOrder = null;
+      try {
+        let allOrders = JSON.parse(localStorage.getItem('jk_orders') || '[]');
+        if (!Array.isArray(allOrders)) allOrders = [];
+        fullOrder = {
+          orderId: orderData.orderId,
+          date: new Date().toLocaleString('en-IN', { dateStyle: 'medium', timeStyle: 'short' }),
+          name: orderData.name,
+          gotra: orderData.sankalpGotra || 'Kashyap',
+          sankalpName: orderData.sankalpName || orderData.name,
+          phone: orderData.phone,
+          email: orderData.email,
+          address: orderData.address,
+          city: orderData.city,
+          state: orderData.state,
+          pincode: orderData.pincode,
+          items: orderData.items,
+          total: orderData.total,
+          paymentMethod: orderData.paymentMethod === 'upi' ? 'UPI / QR Code' : (orderData.paymentMethod === 'card' ? 'Debit / Credit Card' : 'Cash on Delivery (COD)'),
+          paymentStatus: orderData.paymentMethod === 'cod' ? 'Pending (COD)' : 'Paid (Online Verified)',
+          status: 'pending'
+        };
+        allOrders.unshift(fullOrder);
+        localStorage.setItem('jk_orders', JSON.stringify(allOrders));
+      } catch (err) {
+        console.error('Order localStorage error:', err);
+      }
+
+      // Sync order with Server API (persists across all devices in orders.json)
+      try {
+        await fetch('/api/orders', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(fullOrder || orderData)
+        });
+      } catch (err) {
+        console.warn('Server order API sync error:', err);
+      }
+      
+      // Clear cart
+      saveCart([]);
+
+      // Forward to confirmation page
+      window.location.href = `thank-you.html?order_id=${orderData.orderId}`;
+    }
+
+    document.addEventListener('DOMContentLoaded', renderCheckoutItems);
+  </script>
+</body>
+</html>
